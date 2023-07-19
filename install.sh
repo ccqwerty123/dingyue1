@@ -10,7 +10,7 @@ echo "Installing QEMU (2-3m)..."
 sudo apt install qemu-system-x86 qemu qemu-system curl -y > /dev/null 2>&1
 clear
 echo Downloading Windows Disk...
-curl -L -o win7.zip https://az792536.vo.msecnd.net/vms/VMBuild_20180102/VirtualBox/IE11/IE11.Win7.VirtualBox.zip
+curl -L -o win7.zip https://download.microsoft.com/download/e/2/6/e26379c8-f6d8-425c-8383-c28d4c8429d5/WinDev2306Eval.VirtualBox.zip
 unzip win7.zip
 mv 'IE11 - Win7.ova' win7.ova
 rm win7.zip
