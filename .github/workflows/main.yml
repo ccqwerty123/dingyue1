@@ -26,13 +26,14 @@ jobs:
 
     - name: Check File Update
       id: file_check
-      run: echo "::set-output name=modified::$(git status --porcelain)"
+      run: |
+        echo "::set-output name=modified::$(git diff --name-only)"
       
     - name: If File Updated, Push to GitHub
-      if: steps.file_check.outputs.modified != ''
+      if: contains(steps.file_check.outputs.modified, 'data.txt') || contains(steps.file_check.outputs.modified, 'latest.txt')
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add .
+        git add data.txt latest.txt
         git commit -m "Update information and latest time"
         git push
