@@ -1,1 +1,34 @@
- 
+
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10026&templateId=20210518190900jfcj011&activityId=1745633895764529154" | Timestamp: 2024-01-27 23:56:54
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=2023120510021dzpcj02&activityId=1747820842469879810" | Timestamp: 2024-01-27 23:57:35
+Export Info: export LUCK_DRAW_URL="https://cjhy-isv.isvjcloud.com/wxDrawActivity/activity/6804867?activityId=7786d342e2f348bf9212ede06d62ae27" | Timestamp: 2024-01-27 23:58:16
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10020&templateId=2023121110020jggcj01&activityId=1743115343536451586" | Timestamp: 2024-01-27 23:58:57
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=20210527190900dazhuanpan011&activityId=1742844815753658369" | Timestamp: 2024-01-27 23:59:37
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10062&templateId=20210824190900zjd011&activityId=1747220769872605186" | Timestamp: 2024-01-28 00:00:19
+Export Info: export LUCK_DRAW_URL="https://cjhy-isv.isvjcloud.com/wxDrawActivity/activity/1636819?activityId=930b5371b1324cb38cd5649634298eb2" | Timestamp: 2024-01-28 00:01:00
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=2023120510021dzpcj01&activityId=1746736704884563970" | Timestamp: 2024-01-28 00:01:41
+Export Info: export LUCK_DRAW_URL="https://cjhy-isv.isvjcloud.com/wxDrawActivity/activity/2089123?activityId=99e7190986b044499700f33dc055fa7d" | Timestamp: 2024-01-28 00:02:23
+Export Info: export LUCK_DRAW_URL="https://lzkj-isv.isvjcloud.com/wxDrawActivity/activity/2670561?activityId=53f4db4ac8b64da283f1acb23ce271de" | Timestamp: 2024-01-28 00:03:16
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=33ed5a4c-5aae-4b99-8b92-85c1c2e5a784&activityId=1750464780899389442" | Timestamp: 2024-01-28 00:03:57
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10026&templateId=20210518190900jfcj011&activityId=1749708536807346177" | Timestamp: 2024-01-28 00:04:39
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10026&templateId=20210518190900jfcj011&activityId=1744614432429481985" | Timestamp: 2024-01-28 00:05:20
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10062&templateId=20210824190900zjd011&activityId=1747220769872605186" | Timestamp: 2024-01-28 00:06:02
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=2023120510021dzpcj01&activityId=1751165881665507330" | Timestamp: 2024-01-28 00:07:06
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=2023120510021dzpcj01&activityId=1751167701464580097" | Timestamp: 2024-01-28 00:07:47
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=2023120510021dzpcj02&activityId=1747087197313081345" | Timestamp: 2024-01-28 00:08:28
+Export Info: export LUCK_DRAW_URL="https://cjhy-isv.isvjcloud.com/wxDrawActivity/activity?activityId=ca18989cf82c4b2fac4e8b86b46045ff" | Timestamp: 2024-01-28 00:09:19
+Export Info: export jd_wxCollectionActivity_activityUrl="https://cjhy-isv.isvjcloud.com/wxCollectionActivity/activity/activity?activityId=ba19a94a399849c7be6c23ecdb1d3073" | Timestamp: 2024-01-28 00:10:00
+Export Info: export LUCK_DRAW_URL="https://cjhy-isv.isvjcloud.com/wxDrawActivity/activity/8416600?activityId=54c3172ebc2e4465961c86208d0c3265" | Timestamp: 2024-01-28 00:10:57
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10004&templateId=20201228083300lxqdcj011&activityId=1736700380659527682" | Timestamp: 2024-01-27 23:43:06
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=2adaadf0-d16c-4533-b8b4-f32608f4db4c&activityId=1740682831444496386" | Timestamp: 2024-01-27 23:43:46
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10062&templateId=20210824190900zjd011&activityId=1746792571862040577" | Timestamp: 2024-01-27 23:46:40
+Export Info: export LUCK_DRAW_URL="https://cjhy-isv.isvjcloud.com/wxDrawActivity/activity/6161473?activityId=99e7190986b044499700f33dc055fa7d" | Timestamp: 2024-01-27 23:47:31
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=2023120510021dzpcj02&activityId=1747141508768673794" | Timestamp: 2024-01-27 23:48:12
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/?activityType=10046&templateId=2023122210046lhjcj01&activityId=1746779350085115905" | Timestamp: 2024-01-27 23:48:52
+Export Info: export LUCK_DRAW_URL="https://lzkj-isv.isvjcloud.com/wxDrawActivity/activity/2267939?activityId=53f4db4ac8b64da283f1acb23ce271de" | Timestamp: 2024-01-27 23:49:34
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=2023120710021dzpcj01&activityId=1747135595550814209" | Timestamp: 2024-01-27 23:52:37
+Export Info: export LUCK_DRAW_URL="https://cjhy-isv.isvjcloud.com/wxDrawActivity/activity/9227878?activityId=c6aaab6348814458995dc048e5b5abce" | Timestamp: 2024-01-27 23:53:29
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10063&templateId=20210824190900ffl011&activityId=1741405673549332481" | Timestamp: 2024-01-27 23:54:11
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10046&templateId=2023122210046lhjcj01&activityId=1745110736870359042" | Timestamp: 2024-01-27 23:54:52
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10021&templateId=20210527190900dazhuanpan011&activityId=1742858510962077697" | Timestamp: 2024-01-27 23:55:33
+Export Info: export jd_lzkj_loreal_draw_url="https://lzkj-isv.isvjcloud.com/prod/cc/interactsaas/index?activityType=10080&templateId=20210714190901ggl011&activityId=1740588611234222081" | Timestamp: 2024-01-27 23:56:14
