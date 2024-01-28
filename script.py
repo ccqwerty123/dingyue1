@@ -3,7 +3,7 @@ import requests
 import re
 import html
 
-def query_information(found_data):
+def query_information():
     base_url = 'https://t.me/s/faketoulu?before='
     url = base_url
     headers = {
@@ -15,8 +15,14 @@ def query_information(found_data):
         'Host': 't.me'
     }
 
+    old_data = []
+    if os.path.exists('data.txt'):
+        with open('data.txt', 'r') as file:
+            old_data = [line.strip() for line in file]
+
+    found_data = []
+
     while True:
-        temp_data = []
         response = requests.post(url, headers=headers)
         text = html.unescape(response.text)
         pattern = re.compile(r'(export \w*="[^"]*").*?(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})')
@@ -25,10 +31,8 @@ def query_information(found_data):
             export_info = match[0].replace('\\', '')
             timestamp = match[1]
             data_string = "Export Info: " + export_info + " | Timestamp: " + timestamp
-            if data_string not in found_data:
-                temp_data.append(data_string) 
-
-        found_data = temp_data + found_data
+            if data_string not in old_data:            
+                found_data.append(data_string) 
 
         pattern = r'before=(\d+)'
         match = re.search(pattern, text)
@@ -38,13 +42,13 @@ def query_information(found_data):
         else:
             break  
 
-    found_data.reverse()
-
-    with open('data.txt', 'a') as file:
-        for data_string in found_data:
-            file.write(data_string + '\n')
-    
     if found_data:
+        old_data.extend([x for x in found_data if x not in old_data]) # Avoid duplication in the final data
+
+        with open('data.txt', 'w') as file:
+            for data_string in old_data:
+                file.write(data_string + '\n')
+
         latest_timestamp = re.search(r'Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', found_data[-1]).group(1)
         with open('latest.txt', 'w') as file:
             file.write(latest_timestamp)
@@ -52,10 +56,4 @@ def query_information(found_data):
     for data_string in found_data:
         print(data_string)
 
-if os.path.isfile('data.txt'):
-    with open('data.txt', 'r') as file:
-        found_data = [line.strip() for line in file.readlines()]
-else:
-    found_data = []
-
-query_information(found_data)
+query_information()
