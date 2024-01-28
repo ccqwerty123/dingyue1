@@ -1,44 +1,78 @@
 import os
 import requests
 import re
+import html
 
-# 定义获取网页信息的函数
 def query_information():
-    base_url = 'http://webpage_url.com/?before='  # 你要查询的网址
+    base_url = 'https://t.me/s/faketoulu?before='
+    url = base_url
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'
+        'accept': 'application/json, text/javascript, */*; q=0.01',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'zh-CN,zh;q=0.9',
+        'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.160 Safari/537.36',
+        'x-requested-with': 'XMLHttpRequest',
+        'Host': 't.me'
     }
 
-    # 从文件中读取历史数据并添加到found_data中
+    # 创建一个列表来存储已经找到的字符串
     found_data = []
-    if os.path.isfile('data.txt'):
-        with open('data.txt', 'r') as file:
-            found_data = [line.strip() for line in reversed(file.readlines())]
-    
+
     while True:
-        response = requests.get(url, headers=headers)
-        html_contents = response.text
-        # 使用正则匹配找到所有的数据
-        regex = 'target_regex_pattern'  # 更新为你要抓取的数据的正则表达式
-        temp_data = re.findall(regex, html_contents)
-        if len(temp_data) == 0:
-            break  # 如果没有找到数据，停止循环
+        # 创建一个临时列表来存储这次循环找到的字符串
+        temp_data = []
+        
+        # 访问URL
+        response = requests.post(url, headers=headers)
+        
+        # 解析HTML
+        text = html.unescape(response.text)
+        
+        pattern = re.compile(r'(export \w*="[^"]*").*?(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})')
+        matches = pattern.findall(text)
+        for match in matches: 
+            export_info = match[0].replace('\\', '')
+            timestamp = match[1]
+            data_string = "Export Info: " + export_info + " | Timestamp: " + timestamp  # 将URL和时间戳组成一个字符串
+            if data_string not in found_data:  # 如果字符串是唯一的，保存数据
+                temp_data.append(data_string)  # 将新字符串添加到临时列表
+
+        # 将临时列表的数据添加到found_data的开始
+        found_data = temp_data + found_data
+
+        # 查找 before= 后的值，并更新URL
+        pattern = r'before=(\d+)'
+        match = re.search(pattern, text)
+        if match:  
+            value = match.group(1)
+            url = base_url + value
         else:
-            # 将临时列表的数据添加到found_data的前面
-            found_data = temp_data + found_data
-            # 准备下一轮查询的网址
-            next_url = base_url + str(temp_data[-1]['timestamp'])
+            break  
+
+    # 倒序排序结果列表
+    found_data.reverse()
 
     # 保存数据到文件
-    with open('data.txt', 'w') as file:
-        for data_string in reversed(found_data):  # 反向打印found_data以保持最新的数据在前面
+    with open('data.txt', 'a') as file:
+        for data_string in found_data:
             file.write(data_string + '\n')
-            
-    # 如果有新数据，将最新的数据时间保存到另一个文件
+    
+    # 保存最新的日期到另一个文件
     if found_data:
-        with open('latest_time.txt', 'w') as file:
-            # 最新的数据在found_data的末尾
-            file.write(found_data[-1]['timestamp'])
+        latest_timestamp = re.search(r'Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', found_data[-1]).group(1)
+        with open('latest.txt', 'w') as file:
+            file.write(latest_timestamp)
 
-# 执行查询函数
+    # 输出最终的结果
+    for data_string in found_data:
+        print(data_string)
+        
+# 从文件中读取历史数据并添加到found_data中
+if os.path.isfile('data.txt'):
+    with open('data.txt', 'r') as file:
+        found_data = [line.strip() for line in file.readlines()]
+else:
+    found_data = []
+
+# 查询新的信息并在查询后保存到found_data
 query_information()
