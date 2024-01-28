@@ -24,6 +24,10 @@ jobs:
       run: |
         python script.py
 
+    - name: Pull Latest Changes  # 新增步骤
+      run: |
+        git pull
+        
     - name: Check File Update
       id: file_check
       run: |
