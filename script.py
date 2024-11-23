@@ -16,12 +16,7 @@ def query_information():
     base_url = decoded_url
     url = base_url
     headers = {
-        'accept': 'application/json, text/javascript, */*; q=0.01',
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'zh-CN,zh;q=0.9',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',
-        'Host': 't.me'
     }
 
     # 检查data.txt文件是否存在且非空
