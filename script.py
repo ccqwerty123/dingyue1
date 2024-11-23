@@ -35,7 +35,10 @@ def query_information():
 
     # 打印读取的有效数据，检查是否正确加载
     print(f"从data.txt加载了 {len(valid_data)} 条有效记录。")
-
+    
+    # 网络抓取循环
+    total_messages_count = 0  # 初始化消息总数计数器
+    
     while True:
         temp_data = []
         response = requests.get(url, headers=headers)
@@ -85,12 +88,13 @@ def query_information():
 
             # 格式化数据
             export_info_b64 = base64.b64encode(export_line.encode()).decode() if export_line else None
-            data_string = f"导出信息: {export_info_b64} | 时间戳: {timestamp} | 消息ID: {message_id}"
+            data_string = f"{export_info_b64} | 时间戳: {timestamp} | 消息ID: {message_id}"
 
             # 如果该数据不是重复的，则添加到临时数据列表
             if data_string not in valid_data:
                 temp_data.append((data_string, timestamp_obj))
                 new_data_flag = True
+                total_messages_count += len(messages)  # 增加消息总数计数
 
         valid_data = [data[0] for data in temp_data] + valid_data
 
@@ -101,6 +105,11 @@ def query_information():
             value = match.group(1)
             url = base_url + value
         else:
+            break
+        
+    # 如果抓取的消息总数超过300条，退出抓取
+        if total_messages_count > 300:
+            print(f"抓取的消息总数达到 {total_messages_count}，退出抓取。")
             break
 
     # 排序：根据时间戳排序（使用 datetime 处理）
