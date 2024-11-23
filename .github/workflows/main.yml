@@ -41,13 +41,13 @@ jobs:
         git diff --name-only > modified_files.txt
         # 检查文件是否有变动
         if grep -q "data.txt" modified_files.txt || grep -q "latest.txt" modified_files.txt; then
-          echo "Files are modified" >> $GITHUB_ENV
+          echo "MODIFIED=true" >> $GITHUB_ENV
         else
-          echo "No file changes detected" >> $GITHUB_ENV
+          echo "MODIFIED=false" >> $GITHUB_ENV
         fi
 
     - name: If File Updated, Push to GitHub
-      if: env.modified == 'Files are modified'
+      if: env.MODIFIED == 'true'
       run: |
         # 配置 Git 用户信息
         git config --local user.email "action@github.com"
