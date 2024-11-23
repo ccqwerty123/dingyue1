@@ -75,6 +75,17 @@ def query_information():
             export_match = re.search(r'(export\s+[^"]*?="[^"]*")', message_content)
             export_line = export_match.group(0) if export_match else None
 
+            # 如果没有 export 信息，尝试提取链接并清理末尾的特殊字符
+            if not export_line:
+                link_match = re.search(r'(https?://[^\s]+)', message_content)
+                if link_match:
+                    export_line = link_match.group(0)
+                    # 删除末尾的非字母和数字字符
+                    export_line = re.sub(r'[^a-zA-Z0-9]+$', '', export_line)
+                else:
+                    export_line = None  # 如果链接也找不到，则返回 None
+
+
             # 提取时间戳
             time_match = re.search(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', message_content)
             timestamp = time_match.group(1) if time_match else None
