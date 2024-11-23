@@ -19,7 +19,7 @@ def query_information():
         'accept': 'application/json, text/javascript, */*; q=0.01',
         'accept-encoding': 'gzip, deflate, br',
         'accept-language': 'zh-CN,zh;q=0.9',
-        'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.160 Safari/537.36',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
         'x-requested-with': 'XMLHttpRequest',
         'Host': 't.me'
     }
@@ -54,7 +54,7 @@ def query_information():
         
         # 找到所有消息内容
         messages = soup.find_all("div", class_="tgme_widget_message_text js-message_text")
-        
+        print(url)
         print(f"在页面上找到了 {len(messages)} 条消息。")
 
         for message in messages:
