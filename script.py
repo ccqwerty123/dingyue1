@@ -4,6 +4,7 @@ import re
 from bs4 import BeautifulSoup
 import base64
 import html
+from datetime import datetime
 
 def query_information():
     # 初始化有效数据列表
@@ -82,8 +83,8 @@ def query_information():
         else:
             break
 
-    # 排序：根据时间戳排序
-    valid_data.sort(key=lambda s: re.search(r'Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s).group(1), reverse=True)
+    # 排序：根据时间戳排序（使用 datetime 处理）
+    valid_data.sort(key=lambda s: datetime.strptime(re.search(r'Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s).group(1), '%Y-%m-%d %H:%M:%S'), reverse=True)
     
     # 如果数据超过300条，仅保留最新的300条
     if len(valid_data) > 300:
