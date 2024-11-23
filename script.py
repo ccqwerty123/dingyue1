@@ -19,12 +19,19 @@ def query_information():
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
     }
 
-    # 检查data.txt文件是否存在且非空
+    # 检查 latest.txt 文件以获取上次抓取的最新时间戳
+    latest_timestamp = None
+    if os.path.isfile('latest.txt'):
+        with open('latest.txt', 'r') as file:
+            latest_timestamp = file.read().strip()
+            print(f"上次抓取的最新时间戳: {latest_timestamp}")
+
+    # 检查 data.txt 文件是否存在且非空
     if os.path.isfile('data.txt'):
         with open('data.txt', 'r') as file:
             found_data = [line.strip() for line in file.readlines()]
 
-        print(f"从data.txt加载了 {len(found_data)} 条记录。")
+        print(f"从 data.txt 加载了 {len(found_data)} 条记录。")
 
         # 检查是否每行都包含 "Export Info" 和 "Timestamp"
         for line in found_data:
@@ -34,7 +41,7 @@ def query_information():
         print("data.txt 不存在。它可能是空的或缺失。")
 
     # 打印读取的有效数据，检查是否正确加载
-    print(f"从data.txt加载了 {len(valid_data)} 条有效记录。")
+    print(f"从 data.txt 加载了 {len(valid_data)} 条有效记录。")
     
     # 网络抓取循环
     total_messages_count = 0  # 初始化消息总数计数器
@@ -72,29 +79,28 @@ def query_information():
             time_match = re.search(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', message_content)
             timestamp = time_match.group(1) if time_match else None
 
-            # 输出提取的时间戳，检查是否正确提取
-            print(f"提取的时间戳: {timestamp}")
-
+            # 检查时间戳有效性
             if timestamp:
-                # 确保时间戳是有效的
                 try:
                     timestamp_obj = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
-                    print(f"解析的时间戳: {timestamp_obj}")
                 except ValueError:
                     timestamp_obj = None
-                    print(f"无效时间戳: {timestamp}")
-            else:
-                timestamp_obj = None
 
-            # 格式化数据
-            export_info_b64 = base64.b64encode(export_line.encode()).decode() if export_line else None
-            data_string = f"{export_info_b64} | 时间戳: {timestamp} | 消息ID: {message_id}"
+                # 检查时间戳是否大于 latest_timestamp
+                if latest_timestamp and timestamp <= latest_timestamp:
+                    print(f"发现旧消息，时间戳: {timestamp} <= 上次抓取时间戳: {latest_timestamp}，退出抓取。")
+                    return  # 退出函数
 
-            # 如果该数据不是重复的，则添加到临时数据列表
-            if data_string not in valid_data:
-                temp_data.append((data_string, timestamp_obj))
-                new_data_flag = True
-                total_messages_count += len(messages)  # 增加消息总数计数
+            # 只有在 export_line 和有效时间戳都存在的情况下，才认为消息有效
+            if export_line and timestamp_obj:
+                export_info_b64 = base64.b64encode(export_line.encode()).decode()
+                data_string = f"{export_info_b64} | 时间戳: {timestamp} | 消息ID: {message_id}"
+
+                # 检查数据是否重复
+                if data_string not in valid_data:
+                    temp_data.append((data_string, timestamp_obj))
+                    new_data_flag = True
+                    total_messages_count += 1  # 只增加有效消息的计数
 
         valid_data = [data[0] for data in temp_data] + valid_data
 
@@ -107,14 +113,14 @@ def query_information():
         else:
             break
         
-    # 如果抓取的消息总数超过300条，退出抓取
+        # 如果抓取的消息总数超过300条，退出抓取
         if total_messages_count > 300:
             print(f"抓取的消息总数达到 {total_messages_count}，退出抓取。")
             break
 
     # 排序：根据时间戳排序（使用 datetime 处理）
     print(f"正在根据时间戳排序 {len(valid_data)} 条记录...")
-    valid_data.sort(key=lambda s: datetime.strptime(re.search(r'时间戳: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s).group(1), '%Y-%m-%d %H:%M:%S') if re.search(r'时间戳: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s) else datetime.min, reverse=True)
+    valid_data.sort(key=lambda s: datetime.strptime(re.search(r'时间戳: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s).group(1), '%Y-%m-%d %H:%M:%S'), reverse=True)
 
     # 如果数据超过300条，仅保留最新的300条
     if len(valid_data) > 300:
