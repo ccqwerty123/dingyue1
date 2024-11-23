@@ -35,6 +35,9 @@ def query_information():
                 if "Export Info" in line and "Timestamp" in line:
                     valid_data.append(line)
 
+    # 打印读取的有效数据，检查是否正确加载
+    print(f"Loaded {len(valid_data)} entries from data.txt.")
+
     while True:
         temp_data = []
         response = requests.post(url, headers=headers)
@@ -63,12 +66,17 @@ def query_information():
             time_match = re.search(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', message_content)
             timestamp = time_match.group(1) if time_match else None
 
+            # 输出提取的时间戳，检查是否正确提取
+            print(f"Extracted Timestamp: {timestamp}")
+
             if timestamp:
                 # 确保时间戳是有效的
                 try:
                     timestamp_obj = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+                    print(f"Parsed Timestamp: {timestamp_obj}")
                 except ValueError:
                     timestamp_obj = None
+                    print(f"Invalid Timestamp: {timestamp}")
             else:
                 timestamp_obj = None
 
@@ -93,14 +101,20 @@ def query_information():
             break
 
     # 排序：根据时间戳排序（使用 datetime 处理）
+    print(f"Sorting {len(valid_data)} entries by Timestamp...")
     valid_data.sort(key=lambda s: datetime.strptime(re.search(r'Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s).group(1), '%Y-%m-%d %H:%M:%S') if re.search(r'Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s) else datetime.min, reverse=True)
 
     # 如果数据超过300条，仅保留最新的300条
     if len(valid_data) > 300:
         valid_data = valid_data[:300]
 
+    # 输出更新前的 valid_data 内容
+    print(f"Valid data before update: {len(valid_data)} entries.")
+
     # 如果有新数据，更新文件
     if new_data_flag:
+        print(f"New data found, updating data.txt and latest.txt...")
+
         # 更新 data.txt 文件
         with open('data.txt', 'w') as file:
             for data_string in valid_data:
@@ -111,9 +125,13 @@ def query_information():
             with open('latest.txt', 'w') as file:
                 file.write(latest_timestamp)
 
+        print("data.txt and latest.txt have been updated.")
+    else:
+        print("No new data found. No update performed.")
+
     # 打印有效数据
     for data_string in valid_data:
         print(data_string)
 
-
+# 调用查询信息函数
 query_information()
