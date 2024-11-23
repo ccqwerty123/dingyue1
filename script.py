@@ -63,16 +63,25 @@ def query_information():
             time_match = re.search(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', message_content)
             timestamp = time_match.group(1) if time_match else None
 
+            if timestamp:
+                # 确保时间戳是有效的
+                try:
+                    timestamp_obj = datetime.strptime(timestamp, '%Y-%m-%d %H:%M:%S')
+                except ValueError:
+                    timestamp_obj = None
+            else:
+                timestamp_obj = None
+
             # 格式化数据
             export_info_b64 = base64.b64encode(export_line.encode()).decode() if export_line else None
             data_string = f"Export Info: {export_info_b64} | Timestamp: {timestamp} | Message ID: {message_id}"
-            
+
             # 如果该数据不是重复的，则添加到临时数据列表
             if data_string not in valid_data:
-                temp_data.append(data_string)
+                temp_data.append((data_string, timestamp_obj))
                 new_data_flag = True
 
-        valid_data = temp_data + valid_data
+        valid_data = [data[0] for data in temp_data] + valid_data
 
         # 继续抓取下一页的逻辑
         pattern = r'before=(\d+)'
@@ -84,12 +93,13 @@ def query_information():
             break
 
     # 排序：根据时间戳排序（使用 datetime 处理）
-    valid_data.sort(key=lambda s: datetime.strptime(re.search(r'Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s).group(1), '%Y-%m-%d %H:%M:%S'), reverse=True)
-    
+    valid_data.sort(key=lambda s: datetime.strptime(re.search(r'Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s).group(1), '%Y-%m-%d %H:%M:%S') if re.search(r'Timestamp: (\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})', s) else datetime.min, reverse=True)
+
     # 如果数据超过300条，仅保留最新的300条
     if len(valid_data) > 300:
         valid_data = valid_data[:300]
-      
+
+    # 如果有新数据，更新文件
     if new_data_flag:
         # 更新 data.txt 文件
         with open('data.txt', 'w') as file:
