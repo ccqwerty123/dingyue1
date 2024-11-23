@@ -24,24 +24,30 @@ def query_information():
         'Host': 't.me'
     }
 
-    # 检查data.txt文件是否存在
+    # 检查data.txt文件是否存在且非空
     if os.path.isfile('data.txt'):
-        # 如果存在，则打开文件并读取内容
         with open('data.txt', 'r') as file:
             found_data = [line.strip() for line in file.readlines()]
 
-            # 检查是否每行都包含 "Export Info" 和 "Timestamp"
-            for line in found_data:
-                if "Export Info" in line and "Timestamp" in line:
-                    valid_data.append(line)
+        print(f"Loaded {len(found_data)} entries from data.txt.")
+
+        # 检查是否每行都包含 "Export Info" 和 "Timestamp"
+        for line in found_data:
+            if "Export Info" in line and "Timestamp" in line:
+                valid_data.append(line)
+    else:
+        print("data.txt not found. It might be empty or missing.")
 
     # 打印读取的有效数据，检查是否正确加载
-    print(f"Loaded {len(valid_data)} entries from data.txt.")
+    print(f"Loaded {len(valid_data)} valid entries from data.txt.")
 
     while True:
         temp_data = []
         response = requests.post(url, headers=headers)
         text = html.unescape(response.text)
+
+        # 打印网页的原始响应，检查网页内容
+        print(f"Fetched page content. Length: {len(text)}")
 
         # 使用 BeautifulSoup 来解析 HTML 页面
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -49,6 +55,8 @@ def query_information():
         # 找到所有消息内容
         messages = soup.find_all("div", class_="tgme_widget_message_text js-message_text")
         
+        print(f"Found {len(messages)} messages on the page.")
+
         for message in messages:
             # 提取消息内容
             message_content = message.get_text(strip=True)
